@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Delete Account | Titanic Pharmaceuticals</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --titanic-blue: #0091ff;
+      --titanic-dark: #1a1f2e;
+      --titanic-gradient: linear-gradient(135deg, #0091ff 0%, #0062ff 100%);
+      --bg: #f8fafc;
+      --surface: rgba(255, 255, 255, 0.95);
+      --border: #e2e8f0;
+      --text: #1e293b;
+      --text-secondary: #64748b;
+      --danger: #ef4444;
+      --radius: 16px;
+    }
+
+    body {
+      background: var(--bg);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(0, 145, 255, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(0, 98, 255, 0.03) 0px, transparent 50%);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .wrapper {
+      width: 100%;
+      max-width: 480px;
+      animation: slideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .logo-text {
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: -0.5px;
+      color: var(--titanic-blue);
+      text-transform: uppercase;
+    }
+
+    .lang-toggle {
+      background: #fff;
+      padding: 4px;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      display: flex;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    .lang-btn {
+      padding: 6px 14px;
+      border-radius: 50px;
+      border: none;
+      background: transparent;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .lang-btn.active {
+      background: var(--titanic-blue);
+      color: #fff;
+    }
+
+    .card {
+      background: var(--surface);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .icon-badge {
+      width: 56px;
+      height: 56px;
+      background: rgba(0, 145, 255, 0.1);
+      color: var(--titanic-blue);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+
+    .card-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--titanic-dark);
+      margin-bottom: 8px;
+    }
+
+    .card-subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .form-group { margin-bottom: 20px; }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .input-container { position: relative; }
+
+    input {
+      width: 100%;
+      padding: 14px 16px 14px 44px;
+      border-radius: var(--radius);
+      border: 1.5px solid var(--border);
+      background: #fcfdfe;
+      font-family: inherit;
+      font-size: 15px;
+      transition: 0.2s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--titanic-blue);
+      box-shadow: 0 0 0 4px rgba(0, 145, 255, 0.1);
+      background: #fff;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary);
+    }
+
+    .options-grid {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .reason-chip {
+      padding: 12px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.2s;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .reason-chip:hover { border-color: var(--titanic-blue); }
+
+    .reason-chip.selected {
+      background: rgba(0, 145, 255, 0.05);
+      border-color: var(--titanic-blue);
+      color: var(--titanic-blue);
+      font-weight: 600;
+    }
+
+    .warning-box {
+      background: #fff5f5;
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .warning-box svg { color: var(--danger); flex-shrink: 0; }
+
+    .warning-text {
+      font-size: 13px;
+      color: #991b1b;
+      line-height: 1.5;
+    }
+
+    .btn-delete {
+      width: 100%;
+      padding: 16px;
+      background: var(--titanic-gradient);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 10px 20px rgba(0, 145, 255, 0.2);
+      transition: 0.3s;
+    }
+
+    .btn-delete:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(0, 145, 255, 0.3);
+    }
+
+    .cancel-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .cancel-link:hover { color: var(--titanic-dark); }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <div class="top-bar">
+    <div class="logo-text">Titanic</div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en')">English</button>
+      <button class="lang-btn" onclick="setLang('hi')">हिन्दी</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="icon-badge">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18m-2 0v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6m3 0V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+      </div>
+      <h1 class="card-title" id="titleText">Delete Account</h1>
+      <p class="card-subtitle" id="subtitleText">We're sorry to see you go. Please confirm your details.</p>
+    </div>
+
+    <div class="form-group">
+      <label id="labelMobile">Mobile Number</label>
+      <div class="input-container">
+        <span class="input-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+        </span>
+        <input type="text" id="mobile" placeholder="+91 00000 00000">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label id="labelPassword">Password</label>
+      <div class="input-container">
+        <span class="input-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        </span>
+        <input type="password" id="password" placeholder="••••••••">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label id="labelReason">Reason for leaving</label>
+      <div class="options-grid" id="reasonsGrid"></div>
+    </div>
+
+    <div class="warning-box">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+      <div class="warning-text" id="warningText">This will permanently delete all your data and reports from Titanic Pharmaceuticals.</div>
+    </div>
+
+    <button class="btn-delete" onclick="handleSubmit()" id="btnSubmit">Confirm Deletion</button>
+    <a href="#" class="cancel-link" id="backLink">Cancel and return</a>
+  </div>
+</div>
+
+<script>
+  const T = {
+    en: {
+      title: "Delete Account",
+      subtitle: "We're sorry to see you go. Please confirm your account details to proceed.",
+      labelMobile: "Registered Mobile",
+      labelPassword: "Password",
+      labelReason: "Reason for leaving",
+      warning: "<strong>Warning:</strong> This action is permanent. All veterinary records and history will be lost forever.",
+      btnSubmit: "Confirm Deletion",
+      backLink: "Cancel and go back",
+      reasons: ["Privacy concerns", "App is not useful", "Technical issues", "Switching apps"]
+    },
+    hi: {
+      title: "खाता हटाएं",
+      subtitle: "हमें आपको जाते हुए देखकर दुख हो रहा है। कृपया आगे बढ़ने के लिए विवरण की पुष्टि करें।",
+      labelMobile: "पंजीकृत मोबाइल",
+      labelPassword: "पासवर्ड",
+      labelReason: "छोड़ने का कारण",
+      warning: "<strong>चेतावनी:</strong> यह क्रिया स्थायी है। सभी पशु चिकित्सा रिकॉर्ड हमेशा के लिए खो जाएंगे।",
+      btnSubmit: "हटाने की पुष्टि करें",
+      backLink: "रद्द करें और वापस जाएं",
+      reasons: ["गोपनीयता की चिंता", "ऐप उपयोगी नहीं है", "तकनीकी समस्या", "दूसरा ऐप उपयोग कर रहे हैं"]
+    }
+  };
+
+  let currentLang = 'en';
+  let selectedReason = null;
+
+  function setLang(l) {
+    currentLang = l;
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', (l === 'en' && btn.innerText === 'English') || (l === 'hi' && btn.innerText === 'हिन्दी'));
+    });
+    render();
+  }
+
+  function render() {
+    const t = T[currentLang];
+    document.getElementById('titleText').innerText = t.title;
+    document.getElementById('subtitleText').innerText = t.subtitle;
+    document.getElementById('labelMobile').innerText = t.labelMobile;
+    document.getElementById('labelPassword').innerText = t.labelPassword;
+    document.getElementById('labelReason').innerText = t.labelReason;
+    document.getElementById('warningText').innerHTML = t.warning;
+    document.getElementById('btnSubmit').innerText = t.btnSubmit;
+    document.getElementById('backLink').innerText = t.backLink;
+
+    const grid = document.getElementById('reasonsGrid');
+    grid.innerHTML = '';
+    t.reasons.forEach((r, i) => {
+      const chip = document.createElement('div');
+      chip.className = `reason-chip ${selectedReason === i ? 'selected' : ''}`;
+      chip.innerText = r;
+      chip.onclick = () => {
+        selectedReason = i;
+        render();
+      };
+      grid.appendChild(chip);
+    });
+  }
+
+  function handleSubmit() {
+    const mobile = document.getElementById('mobile').value;
+    if(!mobile || selectedReason === null) {
+      alert(currentLang === 'en' ? "Please fill all details" : "कृपया सभी विवरण भरें");
+      return;
+    }
+    alert("Request Processed for: " + mobile);
+  }
+
+  render();
+</script>
+</body>
+</html>
