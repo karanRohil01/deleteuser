@@ -1,32 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Delete Account | Titanic Pharmaceuticals</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <style>
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --titanic-blue: #0091ff;
-            --titanic-dark: #0f172a;
-            --titanic-gradient: linear-gradient(135deg, #0091ff 0%, #0062ff 100%);
+            --blue: #0091ff;
+            --blue-dark: #0062ff;
+            --dark: #0f172a;
+            --gradient: linear-gradient(135deg, #0091ff 0%, #0062ff 100%);
             --bg: #f8fafc;
-            --surface: rgba(255, 255, 255, 0.85);
+            --surface: rgba(255,255,255,0.85);
             --border: #e2e8f0;
             --text: #334155;
-            --text-secondary: #64748b;
+            --muted: #64748b;
             --danger: #ef4444;
-            --success: #22c55e;
             --radius-lg: 24px;
             --radius-md: 12px;
         }
@@ -34,8 +26,8 @@
         body {
             background: var(--bg);
             background-image:
-                radial-gradient(at 0% 0%, rgba(0, 145, 255, 0.07) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(0, 98, 255, 0.05) 0px, transparent 50%);
+                radial-gradient(at 0% 0%, rgba(0,145,255,0.07) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(0,98,255,0.05) 0px, transparent 50%);
             color: var(--text);
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
@@ -45,565 +37,597 @@
             padding: 24px;
         }
 
-        .wrapper {
-            width: 100%;
-            max-width: 460px;
-            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+        .wrapper { width: 100%; max-width: 460px; animation: fadeIn 0.6s cubic-bezier(0.16,1,0.3,1); }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity:0; transform: translateY(10px); }
+            to   { opacity:1; transform: translateY(0); }
         }
 
-        .header-nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 28px;
-        }
+        .header-nav { display:flex; align-items:center; justify-content:space-between; margin-bottom:28px; }
+        .logo-text { font-weight:800; font-size:18px; letter-spacing:1px; color:var(--dark); text-transform:uppercase; }
 
-        .logo-text {
-            font-weight: 800;
-            font-size: 18px;
-            letter-spacing: 1px;
-            color: var(--titanic-dark);
-            text-transform: uppercase;
-        }
+        .toggle-container { background:#e2e8f0; border-radius:100px; position:relative; display:flex; padding:4px; width:140px; cursor:pointer; user-select:none; }
+        .toggle-option { flex:1; text-align:center; font-size:12px; font-weight:700; z-index:1; color:var(--muted); transition:color 0.3s; padding:6px 0; }
+        .toggle-option.active { color:#fff; }
+        .slider { position:absolute; top:4px; left:4px; width:calc(50% - 4px); height:calc(100% - 8px); background:var(--blue); border-radius:100px; transition:transform 0.3s cubic-bezier(0.4,0,0.2,1); box-shadow:0 2px 4px rgba(0,0,0,0.1); }
+        .toggle-container.hi-active .slider { transform:translateX(100%); }
 
-        /* Language Toggle */
-        .toggle-container {
-            background: #e2e8f0;
-            border-radius: 100px;
-            position: relative;
-            display: flex;
-            padding: 4px;
-            width: 140px;
-            cursor: pointer;
-            user-select: none;
-        }
+        .card { background:var(--surface); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.7); border-radius:var(--radius-lg); padding:40px; box-shadow:0 25px 50px -12px rgba(0,0,0,0.08); }
+        .card-header { text-align:center; margin-bottom:32px; }
+        .icon-badge { width:60px; height:60px; background:#fff; color:var(--danger); border-radius:20px; display:flex; align-items:center; justify-content:center; margin:0 auto 20px; box-shadow:0 8px 16px rgba(0,0,0,0.05); }
+        .card-title { font-size:26px; font-weight:800; color:var(--dark); letter-spacing:-0.02em; margin-bottom:10px; }
 
-        .toggle-option {
-            flex: 1;
-            text-align: center;
-            font-size: 12px;
-            font-weight: 700;
-            z-index: 1;
-            color: var(--text-secondary);
-            transition: color 0.3s ease;
-            padding: 6px 0;
-        }
+        .form-group { margin-bottom:24px; }
+        .form-group label { display:block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); margin-bottom:8px; margin-left:4px; }
+        .input-wrapper { position:relative; }
+        input[type="tel"], input[type="password"], input[type="text"] { width:100%; padding:14px 16px 14px 46px; border-radius:var(--radius-md); border:1.5px solid var(--border); background:rgba(255,255,255,0.8); font-family:inherit; font-size:15px; color:var(--dark); transition:all 0.2s; }
+        input:focus { outline:none; border-color:var(--blue); background:#fff; box-shadow:0 0 0 4px rgba(0,145,255,0.08); }
+        .input-icon { position:absolute; left:16px; top:50%; transform:translateY(-50%); color:var(--muted); opacity:0.7; }
 
-        .toggle-option.active {
-            color: #fff;
-        }
+        .reasons-container { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+        .reason-item { padding:12px; border:1.5px solid var(--border); border-radius:var(--radius-md); font-size:13px; font-weight:500; cursor:pointer; transition:all 0.2s; background:#fff; text-align:center; }
+        .reason-item:hover { border-color:var(--blue); transform:translateY(-1px); }
+        .reason-item.selected { background:var(--blue); border-color:var(--blue); color:#fff; font-weight:600; box-shadow:0 4px 12px rgba(0,145,255,0.2); }
+        .other-reason-input { margin-top:12px; padding:12px 16px !important; padding-left:16px !important; animation:slideDown 0.3s ease-out; }
+        @keyframes slideDown { from{opacity:0;transform:translateY(-5px);} to{opacity:1;transform:translateY(0);} }
 
-        .slider {
-            position: absolute;
-            top: 4px;
-            left: 4px;
-            width: calc(50% - 4px);
-            height: calc(100% - 8px);
-            background: var(--titanic-blue);
-            border-radius: 100px;
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
+        .warning-card { background:#fff1f2; border-radius:var(--radius-md); padding:16px; display:flex; gap:14px; margin-top:8px; }
+        .warning-card svg { color:var(--danger); flex-shrink:0; }
+        .warning-card p { font-size:12.5px; color:#9f1239; line-height:1.5; }
 
-        .toggle-container.hi-active .slider {
-            transform: translateX(100%);
-        }
+        .alert-banner { display:none; border-radius:var(--radius-md); padding:14px 16px; font-size:13.5px; font-weight:600; line-height:1.5; margin-top:16px; }
+        .alert-banner.error   { background:#fff1f2; color:#9f1239; border:1px solid #fecdd3; }
+        .alert-banner.success { background:#f0fdf4; color:#166534; border:1px solid #bbf7d0; }
+        .alert-banner.show { display:block; }
 
-        /* Card */
-        .card {
-            background: var(--surface);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.7);
-            border-radius: var(--radius-lg);
-            padding: 40px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
-        }
+        .btn-submit { width:100%; padding:18px; background:var(--gradient); color:#fff; border:none; border-radius:var(--radius-md); font-size:16px; font-weight:700; cursor:pointer; margin-top:32px; box-shadow:0 10px 25px -5px rgba(0,145,255,0.4); transition:all 0.3s; display:flex; align-items:center; justify-content:center; gap:10px; font-family:inherit; }
+        .btn-submit:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 15px 30px -5px rgba(0,145,255,0.5); }
+        .btn-submit:disabled { opacity:0.7; cursor:not-allowed; }
 
-        .card-header {
-            text-align: center;
-            margin-bottom: 32px;
-        }
+        .spinner { width:18px; height:18px; border:2.5px solid rgba(255,255,255,0.4); border-top-color:#fff; border-radius:50%; animation:spin 0.7s linear infinite; display:none; }
+        @keyframes spin { to { transform:rotate(360deg); } }
 
-        .icon-badge {
-            width: 60px;
-            height: 60px;
-            background: #fff;
-            color: var(--danger);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
-        }
+        /* Modals */
+        .modal-overlay { position:fixed; inset:0; background:rgba(15,23,42,0.55); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; padding:24px; z-index:1000; opacity:0; pointer-events:none; transition:opacity 0.25s; }
+        .modal-overlay.open { opacity:1; pointer-events:all; }
+        .modal { background:#fff; border-radius:24px; padding:40px 36px 36px; width:100%; max-width:400px; box-shadow:0 32px 64px -12px rgba(0,0,0,0.3); transform:scale(0.94) translateY(12px); opacity:0; transition:transform 0.35s cubic-bezier(0.16,1,0.3,1), opacity 0.25s; }
+        .modal-overlay.open .modal { transform:scale(1) translateY(0); opacity:1; }
 
-        .card-title {
-            font-size: 26px;
-            font-weight: 800;
-            color: var(--titanic-dark);
-            letter-spacing: -0.02em;
-            margin-bottom: 10px;
-        }
+        .modal-icon-wrap { width:68px; height:68px; background:#fff1f2; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px; }
+        .modal-icon-wrap.blue-bg { background:#eff8ff; }
+        .modal-title { font-size:22px; font-weight:800; color:var(--dark); text-align:center; letter-spacing:-0.02em; margin-bottom:8px; }
+        .modal-subtitle { font-size:14px; color:var(--muted); text-align:center; line-height:1.6; margin-bottom:6px; }
+        .modal-phone-chip { display:flex; align-items:center; justify-content:center; gap:7px; background:#f1f5f9; border-radius:100px; padding:8px 18px; font-size:14px; font-weight:700; color:var(--dark); margin:14px auto 24px; width:fit-content; }
+        .modal-divider { height:1px; background:var(--border); margin:0 -36px 22px; }
+        .modal-checklist { list-style:none; margin-bottom:28px; background:#fff8f8; border-radius:var(--radius-md); padding:6px 16px; border:1px solid #fecdd3; }
+        .modal-checklist li { display:flex; align-items:flex-start; gap:10px; font-size:13px; color:#9f1239; padding:10px 0; line-height:1.45; }
+        .modal-checklist li + li { border-top:1px solid #fecdd3; }
+        .modal-checklist li svg { flex-shrink:0; margin-top:1px; color:var(--danger); }
+        .modal-actions { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 
-        .form-group {
-            margin-bottom: 24px;
-        }
+        .btn-cancel { padding:15px; background:#f8fafc; color:var(--text); border:1.5px solid var(--border); border-radius:var(--radius-md); font-size:15px; font-weight:600; cursor:pointer; transition:all 0.2s; font-family:inherit; }
+        .btn-cancel:hover { background:#f1f5f9; border-color:#cbd5e1; }
+        .btn-danger { padding:15px; background:#ef4444; color:#fff; border:none; border-radius:var(--radius-md); font-size:15px; font-weight:700; cursor:pointer; box-shadow:0 6px 18px -2px rgba(239,68,68,0.4); transition:all 0.2s; font-family:inherit; display:flex; align-items:center; justify-content:center; gap:8px; }
+        .btn-danger:hover:not(:disabled) { background:#dc2626; transform:translateY(-1px); }
+        .btn-danger:disabled { opacity:0.7; cursor:not-allowed; }
+        .btn-primary { padding:15px; background:var(--gradient); color:#fff; border:none; border-radius:var(--radius-md); font-size:15px; font-weight:700; cursor:pointer; box-shadow:0 6px 18px -2px rgba(0,145,255,0.35); transition:all 0.2s; font-family:inherit; display:flex; align-items:center; justify-content:center; gap:8px; }
+        .btn-primary:hover:not(:disabled) { transform:translateY(-1px); }
+        .btn-primary:disabled { opacity:0.7; cursor:not-allowed; }
+        .modal-spinner { width:16px; height:16px; border:2px solid rgba(255,255,255,0.4); border-top-color:#fff; border-radius:50%; animation:spin 0.7s linear infinite; display:none; }
 
-        .form-group label {
-            display: block;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-            margin-left: 4px;
-        }
+        /* OTP */
+        .otp-wrapper { display:flex; gap:10px; justify-content:center; margin:24px 0 8px; }
+        .otp-box { width:54px; height:58px; border:1.5px solid var(--border); border-radius:var(--radius-md); background:#f8fafc; font-size:22px; font-weight:800; color:var(--dark); text-align:center; padding:0; transition:all 0.2s; caret-color:var(--blue); }
+        .otp-box:focus { outline:none; border-color:var(--blue); background:#fff; box-shadow:0 0 0 4px rgba(0,145,255,0.1); }
+        .otp-box.filled { border-color:var(--blue); background:#eff8ff; color:var(--blue); }
+        .resend-row { text-align:center; margin-top:16px; font-size:13px; color:var(--muted); }
+        .resend-btn { background:none; border:none; color:var(--blue); font-weight:700; font-size:13px; cursor:pointer; padding:0; font-family:inherit; }
+        .otp-modal-alert { display:none; border-radius:var(--radius-md); padding:10px 14px; font-size:13px; font-weight:600; margin-top:12px; text-align:center; }
+        .otp-modal-alert.error   { display:block; background:#fff1f2; color:#9f1239; border:1px solid #fecdd3; }
+        .otp-modal-alert.success { display:block; background:#f0fdf4; color:#166534; border:1px solid #bbf7d0; }
 
-        .input-wrapper {
-            position: relative;
-        }
-
-        input {
-            width: 100%;
-            padding: 14px 16px 14px 46px;
-            border-radius: var(--radius-md);
-            border: 1.5px solid var(--border);
-            background: rgba(255, 255, 255, 0.8);
-            font-family: inherit;
-            font-size: 15px;
-            color: var(--titanic-dark);
-            transition: all 0.2s ease;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: var(--titanic-blue);
-            background: #fff;
-            box-shadow: 0 0 0 4px rgba(0, 145, 255, 0.08);
-        }
-
-        .input-icon {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-secondary);
-            opacity: 0.7;
-        }
-
-        .reasons-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .reason-item {
-            padding: 12px;
-            border: 1.5px solid var(--border);
-            border-radius: var(--radius-md);
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: #fff;
-            text-align: center;
-        }
-
-        .reason-item:hover {
-            border-color: var(--titanic-blue);
-            transform: translateY(-1px);
-        }
-
-        .reason-item.selected {
-            background: var(--titanic-blue);
-            border-color: var(--titanic-blue);
-            color: #fff;
-            font-weight: 600;
-            box-shadow: 0 4px 12px rgba(0, 145, 255, 0.2);
-        }
-
-        .other-reason-input {
-            margin-top: 12px;
-            padding: 12px 16px;
-            animation: slideDown 0.3s ease-out;
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .warning-card {
-            background: #fff1f2;
-            border-radius: var(--radius-md);
-            padding: 16px;
-            display: flex;
-            gap: 14px;
-            margin-top: 8px;
-        }
-
-        .warning-card svg {
-            color: var(--danger);
-            flex-shrink: 0;
-        }
-
-        .warning-card p {
-            font-size: 12.5px;
-            color: #9f1239;
-            line-height: 1.5;
-        }
-
-        /* Alert banner */
-        .alert-banner {
-            display: none;
-            border-radius: var(--radius-md);
-            padding: 14px 16px;
-            font-size: 13.5px;
-            font-weight: 600;
-            line-height: 1.5;
-            margin-top: 16px;
-        }
-
-        .alert-banner.error {
-            background: #fff1f2;
-            color: #9f1239;
-            border: 1px solid #fecdd3;
-        }
-
-        .alert-banner.success {
-            background: #f0fdf4;
-            color: #166534;
-            border: 1px solid #bbf7d0;
-        }
-
-        .alert-banner.show {
-            display: block;
-        }
-
-        /* Button */
-        .btn-submit {
-            width: 100%;
-            padding: 18px;
-            background: var(--titanic-gradient);
-            color: #fff;
-            border: none;
-            border-radius: var(--radius-md);
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 32px;
-            box-shadow: 0 10px 25px -5px rgba(0, 145, 255, 0.4);
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .btn-submit:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 30px -5px rgba(0, 145, 255, 0.5);
-        }
-
-        .btn-submit:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
-
-        /* Spinner */
-        .spinner {
-            width: 18px;
-            height: 18px;
-            border: 2.5px solid rgba(255, 255, 255, 0.4);
-            border-top-color: #fff;
-            border-radius: 50%;
-            animation: spin 0.7s linear infinite;
-            display: none;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        @media (max-width: 480px) {
-            .reasons-container {
-                grid-template-columns: 1fr;
-            }
-
-            .card {
-                padding: 30px 20px;
-            }
+        @media (max-width:480px) {
+            .reasons-container { grid-template-columns:1fr; }
+            .card { padding:30px 20px; }
+            .modal { padding:32px 20px 28px; }
+            .modal-divider { margin:0 -20px 20px; }
+            .modal-actions { grid-template-columns:1fr; }
+            .btn-cancel { order:2; }
+            .btn-danger, .btn-primary { order:1; }
+            .otp-box { width:44px; height:50px; font-size:18px; }
         }
     </style>
 </head>
-
 <body>
 
-    <div class="wrapper">
-        <div class="header-nav">
-            <div class="logo-text">Titanic</div>
-            <div class="toggle-container" id="langToggle" onclick="toggleLanguage()">
-                <div class="slider"></div>
-                <div class="toggle-option active" id="opt-en">English</div>
-                <div class="toggle-option" id="opt-hi">हिन्दी</div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">
-                <div class="icon-badge">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M3 6h18m-2 0v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6m3 0V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                    </svg>
-                </div>
-                <h1 class="card-title" id="titleText">Delete Account</h1>
-            </div>
-
-            <div class="form-group">
-                <label id="labelMobile">Registered Mobile</label>
-                <div class="input-wrapper">
-                    <span class="input-icon">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-                            <line x1="12" y1="18" x2="12.01" y2="18"></line>
-                        </svg>
-                    </span>
-                    <input type="tel" id="mobile" placeholder="+91 00000 00000">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label id="labelPassword">Secure Password</label>
-                <div class="input-wrapper">
-                    <span class="input-icon">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                        </svg>
-                    </span>
-                    <input type="password" id="password" placeholder="••••••••">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label id="labelReason">Reason for Leaving</label>
-                <div class="reasons-container" id="reasonsGrid"></div>
-                <div id="otherReasonWrapper"></div>
-            </div>
-
-            <div class="warning-card">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
-                    </path>
-                    <line x1="12" y1="9" x2="12" y2="13"></line>
-                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                </svg>
-                <p id="warningText">All your health records, reports, and history will be permanently erased.</p>
-            </div>
-
-            <!-- Response alert -->
-            <div class="alert-banner" id="alertBanner"></div>
-
-            <button class="btn-submit" onclick="handleSubmit()" id="btnSubmit">
-                <span class="spinner" id="btnSpinner"></span>
-                <span id="btnLabel">Confirm Deletion</span>
-            </button>
+<div class="wrapper">
+    <div class="header-nav">
+        <div class="logo-text">Titanic</div>
+        <div class="toggle-container" id="langToggle" onclick="toggleLanguage()">
+            <div class="slider"></div>
+            <div class="toggle-option active" id="opt-en">English</div>
+            <div class="toggle-option" id="opt-hi">हिन्दी</div>
         </div>
     </div>
 
-    <script>
-        const BASE_URL = 'https://apis.titanicppl.com/api/';
+    <div class="card">
+        <div class="card-header">
+            <div class="icon-badge">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 6h18m-2 0v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6m3 0V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                </svg>
+            </div>
+            <h1 class="card-title" id="titleText">Delete Account</h1>
+        </div>
 
-        const CONTENT = {
-            en: {
-                title: "Delete Account",
-                labelMobile: "Registered Mobile",
-                labelPassword: "Password",
-                labelReason: "Reason for leaving",
-                otherPlaceholder: "Please specify your reason...",
-                warning: "<strong>Warning:</strong> This action is permanent. All pharmaceutical records and data will be permanently deleted.",
-                btnSubmit: "Confirm Deletion",
-                reasons: ["Privacy Concerns", "Have another account", "No longer needed", "Other"],
-                errors: {
-                    fields: "Please fill in all fields and select a reason.",
-                    otherDetail: "Please provide details for the 'Other' reason.",
-                    generic: "Something went wrong. Please try again.",
-                }
+        <div class="form-group">
+            <label id="labelMobile">Registered Mobile</label>
+            <div class="input-wrapper">
+                <span class="input-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></span>
+                <input type="tel" id="mobile" placeholder="+91 00000 00000">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label id="labelPassword">Secure Password</label>
+            <div class="input-wrapper">
+                <span class="input-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+                <input type="password" id="password" placeholder="••••••••">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label id="labelReason">Reason for Leaving</label>
+            <div class="reasons-container" id="reasonsGrid"></div>
+            <div id="otherReasonWrapper"></div>
+        </div>
+
+        <div class="warning-card">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <p id="warningText">All your health records, reports, and history will be permanently erased.</p>
+        </div>
+
+        <div class="alert-banner" id="alertBanner"></div>
+
+        <button class="btn-submit" onclick="handleSubmit()" id="btnSubmit">
+            <span class="spinner" id="btnSpinner"></span>
+            <span id="btnLabel">Confirm Deletion</span>
+        </button>
+    </div>
+</div>
+
+<!-- MODAL 1: Confirm intent → trigger Send OTP -->
+<div class="modal-overlay" id="confirmModal" onclick="handleOverlayClick(event,'confirmModal')">
+    <div class="modal">
+        <div class="modal-icon-wrap">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <h2 class="modal-title" id="confirmTitle">Are you absolutely sure?</h2>
+        <p class="modal-subtitle" id="confirmSubtitle">You are about to permanently delete the account linked to</p>
+        <div class="modal-phone-chip">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            <span id="confirmPhoneNumber"></span>
+        </div>
+        <div class="modal-divider"></div>
+        <ul class="modal-checklist" id="confirmChecklist"></ul>
+        <div class="modal-actions">
+            <button class="btn-cancel" id="confirmCancelBtn" onclick="closeModal('confirmModal')">Go Back</button>
+            <button class="btn-danger" id="confirmProceedBtn" onclick="proceedToOtp()">
+                <span class="modal-spinner" id="confirmSpinner"></span>
+                <span id="confirmProceedLabel">Send OTP</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL 2: OTP Verification -->
+<div class="modal-overlay" id="otpModal" onclick="handleOverlayClick(event,'otpModal')">
+    <div class="modal">
+        <div class="modal-icon-wrap blue-bg">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0091ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        </div>
+        <h2 class="modal-title" id="otpTitle">Verify Your Mobile</h2>
+        <p class="modal-subtitle" id="otpSubtitle">We've sent a 4-digit OTP to</p>
+        <div class="modal-phone-chip">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            <span id="otpPhoneNumber"></span>
+        </div>
+        <div class="otp-wrapper">
+            <input class="otp-box" type="tel" maxlength="1" id="otp0" inputmode="numeric"/>
+            <input class="otp-box" type="tel" maxlength="1" id="otp1" inputmode="numeric"/>
+            <input class="otp-box" type="tel" maxlength="1" id="otp2" inputmode="numeric"/>
+            <input class="otp-box" type="tel" maxlength="1" id="otp3" inputmode="numeric"/>
+        </div>
+        <div class="otp-modal-alert" id="otpAlert"></div>
+        <div class="resend-row">
+            <span id="resendTimerText">Resend OTP in <strong id="resendTimer">30s</strong></span>
+            <button class="resend-btn" id="resendBtn" onclick="resendOtp()" style="display:none">Resend OTP</button>
+        </div>
+        <div class="modal-actions" style="margin-top:24px;">
+            <button class="btn-cancel" id="otpCancelBtn" onclick="closeModal('otpModal')">Go Back</button>
+            <button class="btn-primary" id="otpVerifyBtn" onclick="verifyOtp()">
+                <span class="modal-spinner" id="otpSpinner"></span>
+                <span id="otpVerifyLabel">Verify OTP</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL 3: Final Delete Confirmation (appears AFTER OTP verified) -->
+<div class="modal-overlay" id="finalModal" onclick="handleOverlayClick(event,'finalModal')">
+    <div class="modal">
+        <div class="modal-icon-wrap">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18m-2 0v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6m3 0V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+        </div>
+        <h2 class="modal-title" id="finalTitle">Delete Account</h2>
+        <p class="modal-subtitle" id="finalSubtitle">OTP verified. This is your last step.</p>
+        <div class="modal-phone-chip">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            <span id="finalPhoneNumber"></span>
+        </div>
+        <div class="modal-divider"></div>
+        <ul class="modal-checklist" id="finalChecklist"></ul>
+        <div class="modal-actions">
+            <button class="btn-cancel" id="finalCancelBtn" onclick="closeModal('finalModal')">Go Back</button>
+            <button class="btn-danger" id="finalDeleteBtn" onclick="deleteAccount()">
+                <span class="modal-spinner" id="finalSpinner"></span>
+                <span id="finalDeleteLabel">Delete My Account</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const BASE_URL = 'https://apis.titanicppl.com/api/';
+
+    const CONTENT = {
+        en: {
+            title: "Delete Account", labelMobile: "Registered Mobile", labelPassword: "Password",
+            labelReason: "Reason for leaving", otherPlaceholder: "Please specify your reason...",
+            warning: "All your health records, reports, and history will be permanently erased.",
+            btnSubmit: "Confirm Deletion",
+            reasons: ["Privacy Concerns", "Have another account", "No longer needed", "Other"],
+            errors: { fields: "Please fill in all fields and select a reason.", otherDetail: "Please provide details for the 'Other' reason.", generic: "Something went wrong. Please try again." },
+            confirmModal: {
+                title: "Are you absolutely sure?", subtitle: "You are about to permanently delete the account linked to",
+                checklist: ["All health records and reports will be erased forever", "Your prescription history cannot be recovered", "This action cannot be undone under any circumstances"],
+                cancel: "Go Back", proceed: "Send OTP", sending: "Sending OTP...",
             },
-            hi: {
-                title: "अकाउंट हटाएं",
-                labelMobile: "पंजीकृत मोबाइल",
-                labelPassword: "पासवर्ड",
-                labelReason: "छोड़ने का कारण",
-                otherPlaceholder: "कृपया अपना कारण बताएं...",
-                warning: "<strong>चेतावनी:</strong> यह क्रिया स्थायी है। सभी फार्मास्युटिकल रिकॉर्ड और डेटा हमेशा के लिए खो जाएंगे।",
-                btnSubmit: "हटाने की पुष्टि करें",
-                reasons: ["गोपनीयता चिंता", "एक और अकाउंट है", "अब जरूरत नहीं है", "अन्य"],
-                errors: {
-                    fields: "कृपया सभी फ़ील्ड भरें और एक कारण चुनें।",
-                    otherDetail: "कृपया 'अन्य' कारण के लिए विवरण प्रदान करें।",
-                    generic: "कुछ गलत हो गया। कृपया पुनः प्रयास करें।",
-                }
-            }
-        };
-
-        let currentLang = 'en';
-        let selectedReasonIdx = null;
-        let isLoading = false;
-
-        function toggleLanguage() {
-            currentLang = (currentLang === 'en') ? 'hi' : 'en';
-            const container = document.getElementById('langToggle');
-            const optEn = document.getElementById('opt-en');
-            const optHi = document.getElementById('opt-hi');
-            if (currentLang === 'hi') {
-                container.classList.add('hi-active');
-                optHi.classList.add('active');
-                optEn.classList.remove('active');
-            } else {
-                container.classList.remove('hi-active');
-                optEn.classList.add('active');
-                optHi.classList.remove('active');
-            }
-            render();
+            otpModal: {
+                title: "Verify Your Mobile", subtitle: "We've sent a 4-digit OTP to",
+                cancel: "Go Back", verify: "Verify OTP", verifying: "Verifying...",
+                resendPrefix: "Resend OTP in ", resend: "Resend OTP", incomplete: "Please enter all 4 digits.",
+            },
+            finalModal: {
+                title: "Delete Account", subtitle: "OTP verified. This is your last step.",
+                checklist: ["All health records and reports will be erased forever", "Your prescription history cannot be recovered", "This action cannot be undone under any circumstances"],
+                cancel: "Go Back", deleteLabel: "Delete My Account", deleting: "Deleting...",
+            },
+            done: "Your account deletion request has been submitted. Our team will process it within 48 hours.",
+            doneBtn: "✓ Request Submitted",
+        },
+        hi: {
+            title: "अकाउंट हटाएं", labelMobile: "पंजीकृत मोबाइल", labelPassword: "पासवर्ड",
+            labelReason: "छोड़ने का कारण", otherPlaceholder: "कृपया अपना कारण बताएं...",
+            warning: "सभी स्वास्थ्य रिकॉर्ड, रिपोर्ट और इतिहास हमेशा के लिए मिट जाएंगे।",
+            btnSubmit: "हटाने की पुष्टि करें",
+            reasons: ["गोपनीयता चिंता", "एक और अकाउंट है", "अब जरूरत नहीं है", "अन्य"],
+            errors: { fields: "कृपया सभी फ़ील्ड भरें और एक कारण चुनें।", otherDetail: "कृपया 'अन्य' कारण के लिए विवरण प्रदान करें।", generic: "कुछ गलत हो गया। कृपया पुनः प्रयास करें।" },
+            confirmModal: {
+                title: "क्या आप बिल्कुल निश्चित हैं?", subtitle: "आप इस नंबर से जुड़ा अकाउंट हमेशा के लिए हटाने वाले हैं",
+                checklist: ["सभी स्वास्थ्य रिकॉर्ड और रिपोर्ट हमेशा के लिए मिट जाएंगे", "आपका प्रिस्क्रिप्शन इतिहास पुनः प्राप्त नहीं किया जा सकता", "यह क्रिया किसी भी परिस्थिति में पूर्ववत नहीं की जा सकती"],
+                cancel: "वापस जाएं", proceed: "OTP भेजें", sending: "OTP भेजा जा रहा है...",
+            },
+            otpModal: {
+                title: "अपना मोबाइल सत्यापित करें", subtitle: "हमने एक 4-अंकीय OTP भेजा है",
+                cancel: "वापस जाएं", verify: "OTP सत्यापित करें", verifying: "सत्यापित हो रहा है...",
+                resendPrefix: "OTP फिर से भेजें ", resend: "OTP दोबारा भेजें", incomplete: "कृपया सभी 4 अंक दर्ज करें।",
+            },
+            finalModal: {
+                title: "अकाउंट हटाएं", subtitle: "OTP सत्यापित हो गया। यह आखिरी चरण है।",
+                checklist: ["सभी स्वास्थ्य रिकॉर्ड और रिपोर्ट हमेशा के लिए मिट जाएंगे", "आपका प्रिस्क्रिप्शन इतिहास पुनः प्राप्त नहीं किया जा सकता", "यह क्रिया किसी भी परिस्थिति में पूर्ववत नहीं की जा सकती"],
+                cancel: "वापस जाएं", deleteLabel: "मेरा अकाउंट हटाएं", deleting: "हटाया जा रहा है...",
+            },
+            done: "आपका अकाउंट हटाने का अनुरोध सबमिट हो गया। हमारी टीम 48 घंटों में इसे प्रोसेस करेगी।",
+            doneBtn: "✓ अनुरोध सबमिट हो गया",
         }
+    };
 
-        function showAlert(message, type = 'error') {
-            const banner = document.getElementById('alertBanner');
-            banner.textContent = message;
-            banner.className = `alert-banner ${type} show`;
-        }
+    let currentLang       = 'en';
+    let selectedReasonIdx = null;
+    let pendingPayload    = null;
+    let resendInterval    = null;
 
-        function hideAlert() {
-            document.getElementById('alertBanner').className = 'alert-banner';
-        }
-
-        function setLoading(loading) {
-            isLoading = loading;
-            const btn = document.getElementById('btnSubmit');
-            const spinner = document.getElementById('btnSpinner');
-            btn.disabled = loading;
-            spinner.style.display = loading ? 'block' : 'none';
-        }
-
-        function render() {
-            const data = CONTENT[currentLang];
-            document.getElementById('titleText').innerText = data.title;
-            document.getElementById('labelMobile').innerText = data.labelMobile;
-            document.getElementById('labelPassword').innerText = data.labelPassword;
-            document.getElementById('labelReason').innerText = data.labelReason;
-            document.getElementById('warningText').innerHTML = data.warning;
-            document.getElementById('btnLabel').innerText = data.btnSubmit;
-
-            const grid = document.getElementById('reasonsGrid');
-            grid.innerHTML = '';
-            data.reasons.forEach((text, index) => {
-                const item = document.createElement('div');
-                item.className = `reason-item ${selectedReasonIdx === index ? 'selected' : ''}`;
-                item.innerText = text;
-                item.onclick = () => { 
-                    selectedReasonIdx = index; 
-                    hideAlert(); 
-                    render(); 
-                };
-                grid.appendChild(item);
-            });
-
-            // Handle Other Reason Input
-            const otherWrapper = document.getElementById('otherReasonWrapper');
-            const isOtherSelected = selectedReasonIdx !== null && data.reasons[selectedReasonIdx] === data.reasons[data.reasons.length - 1]; // "Other" is last
-            
-            if (isOtherSelected) {
-                if (!document.getElementById('otherReasonInput')) {
-                    const input = document.createElement('input');
-                    input.type = 'text';
-                    input.id = 'otherReasonInput';
-                    input.className = 'other-reason-input';
-                    input.placeholder = data.otherPlaceholder;
-                    input.style.paddingLeft = '16px'; // No icon for this one
-                    otherWrapper.appendChild(input);
-                } else {
-                    document.getElementById('otherReasonInput').placeholder = data.otherPlaceholder;
-                }
-            } else {
-                otherWrapper.innerHTML = '';
-            }
-        }
-
-        async function handleSubmit() {
-            if (isLoading) return;
-            hideAlert();
-
-            const mobile = document.getElementById('mobile').value.trim();
-            const password = document.getElementById('password').value;
-            const data = CONTENT[currentLang];
-
-            if (!mobile || !password || selectedReasonIdx === null) {
-                showAlert(data.errors.fields, 'error');
-                return;
-            }
-
-            let reason = data.reasons[selectedReasonIdx];
-            
-            // Check if 'Other' is selected and mandatory field is filled
-            if (selectedReasonIdx === data.reasons.length - 1) {
-                const otherInput = document.getElementById('otherReasonInput');
-                const otherValue = otherInput ? otherInput.value.trim() : '';
-                if (!otherValue) {
-                    showAlert(data.errors.otherDetail, 'error');
-                    return;
-                }
-                reason = `Other: ${otherValue}`;
-            }
-
-            setLoading(true);
-            try {
-                const response = await fetch(`${BASE_URL}requestAccountDelete`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ phoneno: mobile, password, reason }),
-                });
-
-                const result = await response.json();
-
-                if (result.status === 'success') {
-                    showAlert(result.message || 'Your request has been submitted.', 'success');
-                    document.getElementById('btnSubmit').disabled = true;
-                    document.getElementById('btnLabel').innerText = currentLang === 'en'
-                        ? '✓ Request Submitted'
-                        : '✓ अनुरोध सबमिट हो गया';
-                } else {
-                    showAlert(result.message || data.errors.generic, 'error');
-                }
-            } catch (err) {
-                showAlert(data.errors.generic, 'error');
-            } finally {
-                setLoading(false);
-            }
-        }
-
+    // ── Language ──────────────────────────────────────────────────────────────
+    function toggleLanguage() {
+        currentLang = currentLang === 'en' ? 'hi' : 'en';
+        document.getElementById('langToggle').classList.toggle('hi-active', currentLang === 'hi');
+        document.getElementById('opt-en').classList.toggle('active', currentLang === 'en');
+        document.getElementById('opt-hi').classList.toggle('active', currentLang === 'hi');
         render();
-    </script>
-</body>
+    }
 
+    // ── Alerts ────────────────────────────────────────────────────────────────
+    function showAlert(msg, type = 'error') { const el = document.getElementById('alertBanner'); el.textContent = msg; el.className = `alert-banner ${type} show`; }
+    function hideAlert() { document.getElementById('alertBanner').className = 'alert-banner'; }
+    function showOtpAlert(msg, type = 'error') { const el = document.getElementById('otpAlert'); el.textContent = msg; el.className = `otp-modal-alert ${type}`; }
+    function hideOtpAlert() { document.getElementById('otpAlert').className = 'otp-modal-alert'; }
+
+    // ── Modals ────────────────────────────────────────────────────────────────
+    function openModal(id) { document.getElementById(id).classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeModal(id) {
+        document.getElementById(id).classList.remove('open');
+        if (!document.querySelector('.modal-overlay.open')) document.body.style.overflow = '';
+        if (id === 'confirmModal') resetConfirmModal();
+        if (id === 'otpModal')    resetOtpModal();
+        if (id === 'finalModal')  resetFinalModal();
+    }
+    function handleOverlayClick(e, id) { if (e.target === document.getElementById(id)) closeModal(id); }
+
+    function resetConfirmModal() {
+        document.getElementById('confirmProceedBtn').disabled = false;
+        document.getElementById('confirmSpinner').style.display = 'none';
+        document.getElementById('confirmProceedLabel').innerText = CONTENT[currentLang].confirmModal.proceed;
+    }
+    function resetOtpModal() {
+        [0,1,2,3].forEach(i => { const b = document.getElementById('otp'+i); b.value=''; b.classList.remove('filled'); });
+        hideOtpAlert(); clearInterval(resendInterval);
+        document.getElementById('otpVerifyBtn').disabled = false;
+        document.getElementById('otpSpinner').style.display = 'none';
+        document.getElementById('otpVerifyLabel').innerText = CONTENT[currentLang].otpModal.verify;
+    }
+    function resetFinalModal() {
+        document.getElementById('finalDeleteBtn').disabled = false;
+        document.getElementById('finalSpinner').style.display = 'none';
+        document.getElementById('finalDeleteLabel').innerText = CONTENT[currentLang].finalModal.deleteLabel;
+    }
+
+    // ── OTP boxes ─────────────────────────────────────────────────────────────
+    function initOtpBoxes() {
+        for (let i = 0; i < 4; i++) {
+            const box = document.getElementById('otp' + i);
+            box.addEventListener('input', function () {
+                this.value = this.value.replace(/\D/g, '').slice(-1);
+                this.classList.toggle('filled', this.value !== '');
+                if (this.value && i < 3) document.getElementById('otp' + (i + 1)).focus();
+                hideOtpAlert();
+            });
+            box.addEventListener('keydown', function (e) {
+                if (e.key === 'Backspace' && !this.value && i > 0) {
+                    const prev = document.getElementById('otp' + (i - 1));
+                    prev.value = ''; prev.classList.remove('filled'); prev.focus();
+                }
+            });
+            box.addEventListener('paste', function (e) {
+                e.preventDefault();
+                const paste = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '');
+                [...paste.slice(0, 4)].forEach((char, idx) => { const t = document.getElementById('otp'+idx); if (t) { t.value = char; t.classList.add('filled'); } });
+                document.getElementById('otp' + Math.min(paste.length, 3)).focus();
+            });
+        }
+    }
+    function getOtpValue() { return [0,1,2,3].map(i => document.getElementById('otp'+i).value).join(''); }
+
+    // ── Resend timer ──────────────────────────────────────────────────────────
+    function startResendTimer() {
+        const timerEl = document.getElementById('resendTimer');
+        const timerText = document.getElementById('resendTimerText');
+        const resendBtn = document.getElementById('resendBtn');
+        const data = CONTENT[currentLang].otpModal;
+        let secs = 30;
+        timerEl.innerText = secs + 's';
+        timerText.style.display = 'inline';
+        resendBtn.style.display = 'none';
+        resendBtn.innerText = data.resend;
+        timerText.childNodes[0].textContent = data.resendPrefix;
+        clearInterval(resendInterval);
+        resendInterval = setInterval(() => {
+            secs--;
+            timerEl.innerText = secs + 's';
+            if (secs <= 0) { clearInterval(resendInterval); timerText.style.display = 'none'; resendBtn.style.display = 'inline'; }
+        }, 1000);
+    }
+
+    // ── Helper: build checklist ───────────────────────────────────────────────
+    function buildChecklist(containerId, items) {
+        const list = document.getElementById(containerId);
+        list.innerHTML = '';
+        items.forEach(text => {
+            const li = document.createElement('li');
+            li.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span>${text}</span>`;
+            list.appendChild(li);
+        });
+    }
+
+    // ── STEP 1: Form → open Confirm modal ────────────────────────────────────
+    function handleSubmit() {
+        hideAlert();
+        const mobile   = document.getElementById('mobile').value.trim();
+        const password = document.getElementById('password').value;
+        const data     = CONTENT[currentLang];
+
+        if (!mobile || !password || selectedReasonIdx === null) { showAlert(data.errors.fields); return; }
+
+        let reason = data.reasons[selectedReasonIdx];
+        if (selectedReasonIdx === data.reasons.length - 1) {
+            const otherInput = document.getElementById('otherReasonInput');
+            const otherValue = otherInput ? otherInput.value.trim() : '';
+            if (!otherValue) { showAlert(data.errors.otherDetail); return; }
+            reason = `Other: ${otherValue}`;
+        }
+
+        pendingPayload = { phoneno: mobile, password, reason };
+
+        const cm = data.confirmModal;
+        document.getElementById('confirmTitle').innerText        = cm.title;
+        document.getElementById('confirmSubtitle').innerText     = cm.subtitle;
+        document.getElementById('confirmPhoneNumber').innerText  = mobile;
+        document.getElementById('confirmCancelBtn').innerText    = cm.cancel;
+        document.getElementById('confirmProceedLabel').innerText = cm.proceed;
+        buildChecklist('confirmChecklist', cm.checklist);
+        openModal('confirmModal');
+    }
+
+    // ── STEP 2: Send OTP → open OTP modal ────────────────────────────────────
+    async function proceedToOtp() {
+        if (!pendingPayload) return;
+        const data = CONTENT[currentLang];
+        const btn = document.getElementById('confirmProceedBtn');
+        const spinner = document.getElementById('confirmSpinner');
+        const label = document.getElementById('confirmProceedLabel');
+        btn.disabled = true; spinner.style.display = 'block'; label.innerText = data.confirmModal.sending;
+
+        try {
+            const res    = await fetch(`${BASE_URL}sendDeleteOtp`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(pendingPayload) });
+            const result = await res.json();
+
+            if (result.status === 'success') {
+                closeModal('confirmModal');
+                const od = data.otpModal;
+                document.getElementById('otpTitle').innerText       = od.title;
+                document.getElementById('otpSubtitle').innerText    = od.subtitle;
+                document.getElementById('otpPhoneNumber').innerText = pendingPayload.phoneno;
+                document.getElementById('otpCancelBtn').innerText   = od.cancel;
+                document.getElementById('otpVerifyLabel').innerText = od.verify;
+                openModal('otpModal');
+                setTimeout(() => document.getElementById('otp0').focus(), 350);
+                startResendTimer();
+            } else {
+                resetConfirmModal();
+                closeModal('confirmModal');
+                showAlert(result.message || data.errors.generic);
+            }
+        } catch (err) {
+            resetConfirmModal();
+            closeModal('confirmModal');
+            showAlert(CONTENT[currentLang].errors.generic);
+        }
+    }
+
+    // ── Resend OTP ────────────────────────────────────────────────────────────
+    async function resendOtp() {
+        if (!pendingPayload) return;
+        try {
+            const res    = await fetch(`${BASE_URL}sendDeleteOtp`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(pendingPayload) });
+            const result = await res.json();
+            if (result.status === 'success') {
+                showOtpAlert(currentLang === 'en' ? 'OTP resent successfully!' : 'OTP दोबारा भेजा गया!', 'success');
+                [0,1,2,3].forEach(i => { const b = document.getElementById('otp'+i); b.value=''; b.classList.remove('filled'); });
+                document.getElementById('otp0').focus();
+                startResendTimer();
+            } else {
+                showOtpAlert(result.message || CONTENT[currentLang].errors.generic);
+            }
+        } catch (err) { showOtpAlert(CONTENT[currentLang].errors.generic); }
+    }
+
+    // ── STEP 3: Verify OTP → open Final Confirmation modal ───────────────────
+    // KEY FIX: after OTP success we do NOT submit deletion yet.
+    // We open a 3rd modal so the user must explicitly click "Delete My Account".
+    async function verifyOtp() {
+        const otp  = getOtpValue();
+        const data = CONTENT[currentLang];
+        if (otp.length < 4) { showOtpAlert(data.otpModal.incomplete); return; }
+
+        const btn     = document.getElementById('otpVerifyBtn');
+        const spinner = document.getElementById('otpSpinner');
+        const label   = document.getElementById('otpVerifyLabel');
+        btn.disabled = true; spinner.style.display = 'block'; label.innerText = data.otpModal.verifying;
+
+        try {
+            const res    = await fetch(`${BASE_URL}verifyDeleteOtp`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ phoneno: pendingPayload.phoneno, otp }) });
+            const result = await res.json();
+
+            if (result.status === 'success') {
+                // OTP verified — close OTP modal, open final confirmation
+                clearInterval(resendInterval);
+                closeModal('otpModal');
+
+                const fm = data.finalModal;
+                document.getElementById('finalTitle').innerText       = fm.title;
+                document.getElementById('finalSubtitle').innerText    = fm.subtitle;
+                document.getElementById('finalPhoneNumber').innerText = pendingPayload.phoneno;
+                document.getElementById('finalCancelBtn').innerText   = fm.cancel;
+                document.getElementById('finalDeleteLabel').innerText = fm.deleteLabel;
+                buildChecklist('finalChecklist', fm.checklist);
+
+                openModal('finalModal');
+            } else {
+                showOtpAlert(result.message || data.errors.generic);
+                btn.disabled = false; spinner.style.display = 'none'; label.innerText = data.otpModal.verify;
+            }
+        } catch (err) {
+            showOtpAlert(CONTENT[currentLang].errors.generic);
+            btn.disabled = false; spinner.style.display = 'none'; label.innerText = data.otpModal.verify;
+        }
+    }
+
+    // ── STEP 4: Final delete — calls deleteAccount API ───────────────────────
+    async function deleteAccount() {
+        const data    = CONTENT[currentLang];
+        const btn     = document.getElementById('finalDeleteBtn');
+        const spinner = document.getElementById('finalSpinner');
+        const label   = document.getElementById('finalDeleteLabel');
+        btn.disabled = true; spinner.style.display = 'block'; label.innerText = data.finalModal.deleting;
+
+        try {
+            const res    = await fetch(`${BASE_URL}deleteAccount`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ phoneno: pendingPayload.phoneno }) });
+            const result = await res.json();
+
+            closeModal('finalModal');
+
+            if (result.status === 'success') {
+                showAlert(result.message || data.done, 'success');
+                // Lock the form — request done
+                document.getElementById('btnSubmit').disabled = true;
+                document.getElementById('btnLabel').innerText = data.doneBtn;
+                document.getElementById('mobile').value   = '';
+                document.getElementById('password').value = '';
+            } else {
+                showAlert(result.message || data.errors.generic);
+                resetFinalModal();
+            }
+        } catch (err) {
+            closeModal('finalModal');
+            showAlert(CONTENT[currentLang].errors.generic);
+            resetFinalModal();
+        }
+    }
+
+    // ── Render ────────────────────────────────────────────────────────────────
+    function render() {
+        const data = CONTENT[currentLang];
+        document.getElementById('titleText').innerText     = data.title;
+        document.getElementById('labelMobile').innerText   = data.labelMobile;
+        document.getElementById('labelPassword').innerText = data.labelPassword;
+        document.getElementById('labelReason').innerText   = data.labelReason;
+        document.getElementById('warningText').innerText   = data.warning;
+        document.getElementById('btnLabel').innerText      = data.btnSubmit;
+
+        const grid = document.getElementById('reasonsGrid');
+        grid.innerHTML = '';
+        data.reasons.forEach((text, index) => {
+            const item = document.createElement('div');
+            item.className = `reason-item ${selectedReasonIdx === index ? 'selected' : ''}`;
+            item.innerText = text;
+            item.onclick = () => { selectedReasonIdx = index; hideAlert(); render(); };
+            grid.appendChild(item);
+        });
+
+        const wrap = document.getElementById('otherReasonWrapper');
+        if (selectedReasonIdx === data.reasons.length - 1) {
+            if (!document.getElementById('otherReasonInput')) {
+                const input = document.createElement('input');
+                input.type = 'text'; input.id = 'otherReasonInput'; input.className = 'other-reason-input';
+                input.placeholder = data.otherPlaceholder; input.style.paddingLeft = '16px';
+                wrap.appendChild(input);
+            } else { document.getElementById('otherReasonInput').placeholder = data.otherPlaceholder; }
+        } else { wrap.innerHTML = ''; }
+    }
+
+    initOtpBoxes();
+    render();
+</script>
+</body>
 </html>
