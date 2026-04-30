@@ -1,427 +1,609 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Delete Account | Titanic Pharmaceuticals</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delete Account | Titanic Pharmaceuticals</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    :root {
-      --titanic-blue: #0091ff;
-      --titanic-dark: #0f172a;
-      --titanic-gradient: linear-gradient(135deg, #0091ff 0%, #0062ff 100%);
-      --bg: #f8fafc;
-      --surface: rgba(255, 255, 255, 0.85);
-      --border: #e2e8f0;
-      --text: #334155;
-      --text-secondary: #64748b;
-      --danger: #ef4444;
-      --radius-lg: 24px;
-      --radius-md: 12px;
-    }
+        :root {
+            --titanic-blue: #0091ff;
+            --titanic-dark: #0f172a;
+            --titanic-gradient: linear-gradient(135deg, #0091ff 0%, #0062ff 100%);
+            --bg: #f8fafc;
+            --surface: rgba(255, 255, 255, 0.85);
+            --border: #e2e8f0;
+            --text: #334155;
+            --text-secondary: #64748b;
+            --danger: #ef4444;
+            --success: #22c55e;
+            --radius-lg: 24px;
+            --radius-md: 12px;
+        }
 
-    body {
-      background: var(--bg);
-      background-image: 
-        radial-gradient(at 0% 0%, rgba(0, 145, 255, 0.07) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(0, 98, 255, 0.05) 0px, transparent 50%);
-      color: var(--text);
-      font-family: 'Inter', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
+        body {
+            background: var(--bg);
+            background-image:
+                radial-gradient(at 0% 0%, rgba(0, 145, 255, 0.07) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(0, 98, 255, 0.05) 0px, transparent 50%);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
 
-    .wrapper {
-      width: 100%;
-      max-width: 460px;
-      animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    }
+        .wrapper {
+            width: 100%;
+            max-width: 460px;
+            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
 
-    /* Professional Sliding Toggle */
-    .header-nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 28px;
-    }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    .logo-text {
-      font-weight: 800;
-      font-size: 18px;
-      letter-spacing: 1px;
-      color: var(--titanic-dark);
-      text-transform: uppercase;
-    }
+        .header-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 28px;
+        }
 
-    .toggle-container {
-      background: #e2e8f0;
-      border-radius: 100px;
-      position: relative;
-      display: flex;
-      padding: 4px;
-      width: 140px;
-      cursor: pointer;
-      user-select: none;
-    }
+        .logo-text {
+            font-weight: 800;
+            font-size: 18px;
+            letter-spacing: 1px;
+            color: var(--titanic-dark);
+            text-transform: uppercase;
+        }
 
-    .toggle-option {
-      flex: 1;
-      text-align: center;
-      font-size: 12px;
-      font-weight: 700;
-      z-index: 1;
-      color: var(--text-secondary);
-      transition: color 0.3s ease;
-      padding: 6px 0;
-    }
+        /* Language Toggle */
+        .toggle-container {
+            background: #e2e8f0;
+            border-radius: 100px;
+            position: relative;
+            display: flex;
+            padding: 4px;
+            width: 140px;
+            cursor: pointer;
+            user-select: none;
+        }
 
-    .toggle-option.active {
-      color: #fff;
-    }
+        .toggle-option {
+            flex: 1;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 700;
+            z-index: 1;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+            padding: 6px 0;
+        }
 
-    .slider {
-      position: absolute;
-      top: 4px;
-      left: 4px;
-      width: calc(50% - 4px);
-      height: calc(100% - 8px);
-      background: var(--titanic-blue);
-      border-radius: 100px;
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
+        .toggle-option.active {
+            color: #fff;
+        }
 
-    .toggle-container.hi-active .slider {
-      transform: translateX(100%);
-    }
+        .slider {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: calc(50% - 4px);
+            height: calc(100% - 8px);
+            background: var(--titanic-blue);
+            border-radius: 100px;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
-    /* Card Styling */
-    .card {
-      background: var(--surface);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.7);
-      border-radius: var(--radius-lg);
-      padding: 40px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
-    }
+        .toggle-container.hi-active .slider {
+            transform: translateX(100%);
+        }
 
-    .card-header {
-      text-align: center;
-      margin-bottom: 32px;
-    }
+        /* Card */
+        .card {
+            background: var(--surface);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+        }
 
-    .icon-badge {
-      width: 60px;
-      height: 60px;
-      background: #fff;
-      color: var(--danger);
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 20px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.05);
-    }
+        .card-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
 
-    .card-title {
-      font-size: 26px;
-      font-weight: 800;
-      color: var(--titanic-dark);
-      letter-spacing: -0.02em;
-      margin-bottom: 10px;
-    }
+        .icon-badge {
+            width: 60px;
+            height: 60px;
+            background: #fff;
+            color: var(--danger);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+        }
 
-    .card-subtitle {
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
+        .card-title {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--titanic-dark);
+            letter-spacing: -0.02em;
+            margin-bottom: 10px;
+        }
 
-    .form-group { margin-bottom: 24px; }
+        .form-group {
+            margin-bottom: 24px;
+        }
 
-    .form-group label {
-      display: block;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-secondary);
-      margin-bottom: 8px;
-      margin-left: 4px;
-    }
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            margin-left: 4px;
+        }
 
-    .input-wrapper { position: relative; }
+        .input-wrapper {
+            position: relative;
+        }
 
-    input {
-      width: 100%;
-      padding: 14px 16px 14px 46px;
-      border-radius: var(--radius-md);
-      border: 1.5px solid var(--border);
-      background: rgba(255, 255, 255, 0.8);
-      font-family: inherit;
-      font-size: 15px;
-      color: var(--titanic-dark);
-      transition: all 0.2s ease;
-    }
+        input {
+            width: 100%;
+            padding: 14px 16px 14px 46px;
+            border-radius: var(--radius-md);
+            border: 1.5px solid var(--border);
+            background: rgba(255, 255, 255, 0.8);
+            font-family: inherit;
+            font-size: 15px;
+            color: var(--titanic-dark);
+            transition: all 0.2s ease;
+        }
 
-    input:focus {
-      outline: none;
-      border-color: var(--titanic-blue);
-      background: #fff;
-      box-shadow: 0 0 0 4px rgba(0, 145, 255, 0.08);
-    }
+        input:focus {
+            outline: none;
+            border-color: var(--titanic-blue);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(0, 145, 255, 0.08);
+        }
 
-    .input-icon {
-      position: absolute;
-      left: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-secondary);
-      opacity: 0.7;
-    }
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            opacity: 0.7;
+        }
 
-    .reasons-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
+        .reasons-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
 
-    .reason-item {
-      padding: 12px;
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius-md);
-      font-size: 13px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s;
-      background: #fff;
-      text-align: center;
-    }
+        .reason-item {
+            padding: 12px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #fff;
+            text-align: center;
+        }
 
-    .reason-item:hover {
-      border-color: var(--titanic-blue);
-      transform: translateY(-1px);
-    }
+        .reason-item:hover {
+            border-color: var(--titanic-blue);
+            transform: translateY(-1px);
+        }
 
-    .reason-item.selected {
-      background: var(--titanic-blue);
-      border-color: var(--titanic-blue);
-      color: #fff;
-      font-weight: 600;
-      box-shadow: 0 4px 12px rgba(0, 145, 255, 0.2);
-    }
+        .reason-item.selected {
+            background: var(--titanic-blue);
+            border-color: var(--titanic-blue);
+            color: #fff;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 145, 255, 0.2);
+        }
 
-    .warning-card {
-      background: #fff1f2;
-      border-radius: var(--radius-md);
-      padding: 16px;
-      display: flex;
-      gap: 14px;
-      margin-top: 8px;
-    }
+        .other-reason-input {
+            margin-top: 12px;
+            padding: 12px 16px;
+            animation: slideDown 0.3s ease-out;
+        }
 
-    .warning-card svg { color: var(--danger); flex-shrink: 0; }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    .warning-card p {
-      font-size: 12.5px;
-      color: #9f1239;
-      line-height: 1.5;
-    }
+        .warning-card {
+            background: #fff1f2;
+            border-radius: var(--radius-md);
+            padding: 16px;
+            display: flex;
+            gap: 14px;
+            margin-top: 8px;
+        }
 
-    .btn-submit {
-      width: 100%;
-      padding: 18px;
-      background: var(--titanic-gradient);
-      color: #fff;
-      border: none;
-      border-radius: var(--radius-md);
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 32px;
-      box-shadow: 0 10px 25px -5px rgba(0, 145, 255, 0.4);
-      transition: all 0.3s;
-    }
+        .warning-card svg {
+            color: var(--danger);
+            flex-shrink: 0;
+        }
 
-    .btn-submit:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 15px 30px -5px rgba(0, 145, 255, 0.5);
-    }
+        .warning-card p {
+            font-size: 12.5px;
+            color: #9f1239;
+            line-height: 1.5;
+        }
 
-    .footer-action {
-      display: none;
-      text-align: center;
-      margin-top: 24px;
-      font-size: 14px;
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.2s;
-    }
+        /* Alert banner */
+        .alert-banner {
+            display: none;
+            border-radius: var(--radius-md);
+            padding: 14px 16px;
+            font-size: 13.5px;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-top: 16px;
+        }
 
-    .footer-action:hover { color: var(--titanic-dark); }
+        .alert-banner.error {
+            background: #fff1f2;
+            color: #9f1239;
+            border: 1px solid #fecdd3;
+        }
 
-    @media (max-width: 480px) {
-      .reasons-container { grid-template-columns: 1fr; }
-      .card { padding: 30px 20px; }
-    }
-  </style>
+        .alert-banner.success {
+            background: #f0fdf4;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .alert-banner.show {
+            display: block;
+        }
+
+        /* Button */
+        .btn-submit {
+            width: 100%;
+            padding: 18px;
+            background: var(--titanic-gradient);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 32px;
+            box-shadow: 0 10px 25px -5px rgba(0, 145, 255, 0.4);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-submit:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px -5px rgba(0, 145, 255, 0.5);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        /* Spinner */
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2.5px solid rgba(255, 255, 255, 0.4);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .reasons-container {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 30px 20px;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-<div class="wrapper">
-  <div class="header-nav">
-    <div class="logo-text">Titanic</div>
-    <div class="toggle-container" id="langToggle" onclick="toggleLanguage()">
-      <div class="slider"></div>
-      <div class="toggle-option active" id="opt-en">English</div>
-      <div class="toggle-option" id="opt-hi">हिन्दी</div>
+    <div class="wrapper">
+        <div class="header-nav">
+            <div class="logo-text">Titanic</div>
+            <div class="toggle-container" id="langToggle" onclick="toggleLanguage()">
+                <div class="slider"></div>
+                <div class="toggle-option active" id="opt-en">English</div>
+                <div class="toggle-option" id="opt-hi">हिन्दी</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="icon-badge">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 6h18m-2 0v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6m3 0V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                    </svg>
+                </div>
+                <h1 class="card-title" id="titleText">Delete Account</h1>
+            </div>
+
+            <div class="form-group">
+                <label id="labelMobile">Registered Mobile</label>
+                <div class="input-wrapper">
+                    <span class="input-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                        </svg>
+                    </span>
+                    <input type="tel" id="mobile" placeholder="+91 00000 00000">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label id="labelPassword">Secure Password</label>
+                <div class="input-wrapper">
+                    <span class="input-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </span>
+                    <input type="password" id="password" placeholder="••••••••">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label id="labelReason">Reason for Leaving</label>
+                <div class="reasons-container" id="reasonsGrid"></div>
+                <div id="otherReasonWrapper"></div>
+            </div>
+
+            <div class="warning-card">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
+                    </path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <p id="warningText">All your health records, reports, and history will be permanently erased.</p>
+            </div>
+
+            <!-- Response alert -->
+            <div class="alert-banner" id="alertBanner"></div>
+
+            <button class="btn-submit" onclick="handleSubmit()" id="btnSubmit">
+                <span class="spinner" id="btnSpinner"></span>
+                <span id="btnLabel">Confirm Deletion</span>
+            </button>
+        </div>
     </div>
-  </div>
 
-  <div class="card">
-    <div class="card-header">
-      <div class="icon-badge">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18m-2 0v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6m3 0V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
-      </div>
-      <h1 class="card-title" id="titleText">Delete Account</h1>
-      <p style="display: none;" class="card-subtitle" id="subtitleText">This process is irreversible. Please confirm your account details to proceed.</p>
-    </div>
+    <script>
+        const BASE_URL = 'https://apis.titanicppl.com/api/';
 
-    <div class="form-group">
-      <label id="labelMobile">Registered Mobile</label>
-      <div class="input-wrapper">
-        <span class="input-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
-        </span>
-        <input type="text" id="mobile" placeholder="+91 00000 00000">
-      </div>
-    </div>
+        const CONTENT = {
+            en: {
+                title: "Delete Account",
+                labelMobile: "Registered Mobile",
+                labelPassword: "Password",
+                labelReason: "Reason for leaving",
+                otherPlaceholder: "Please specify your reason...",
+                warning: "<strong>Warning:</strong> This action is permanent. All pharmaceutical records and data will be permanently deleted.",
+                btnSubmit: "Confirm Deletion",
+                reasons: ["Privacy Concerns", "Have another account", "No longer needed", "Other"],
+                errors: {
+                    fields: "Please fill in all fields and select a reason.",
+                    otherDetail: "Please provide details for the 'Other' reason.",
+                    generic: "Something went wrong. Please try again.",
+                }
+            },
+            hi: {
+                title: "अकाउंट हटाएं",
+                labelMobile: "पंजीकृत मोबाइल",
+                labelPassword: "पासवर्ड",
+                labelReason: "छोड़ने का कारण",
+                otherPlaceholder: "कृपया अपना कारण बताएं...",
+                warning: "<strong>चेतावनी:</strong> यह क्रिया स्थायी है। सभी फार्मास्युटिकल रिकॉर्ड और डेटा हमेशा के लिए खो जाएंगे।",
+                btnSubmit: "हटाने की पुष्टि करें",
+                reasons: ["गोपनीयता चिंता", "एक और अकाउंट है", "अब जरूरत नहीं है", "अन्य"],
+                errors: {
+                    fields: "कृपया सभी फ़ील्ड भरें और एक कारण चुनें।",
+                    otherDetail: "कृपया 'अन्य' कारण के लिए विवरण प्रदान करें।",
+                    generic: "कुछ गलत हो गया। कृपया पुनः प्रयास करें।",
+                }
+            }
+        };
 
-    <div class="form-group">
-      <label id="labelPassword">Secure Password</label>
-      <div class="input-wrapper">
-        <span class="input-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-        </span>
-        <input type="password" id="password" placeholder="••••••••">
-      </div>
-    </div>
+        let currentLang = 'en';
+        let selectedReasonIdx = null;
+        let isLoading = false;
 
-    <div class="form-group">
-      <label id="labelReason">Reason for Leaving</label>
-      <div class="reasons-container" id="reasonsGrid"></div>
-    </div>
+        function toggleLanguage() {
+            currentLang = (currentLang === 'en') ? 'hi' : 'en';
+            const container = document.getElementById('langToggle');
+            const optEn = document.getElementById('opt-en');
+            const optHi = document.getElementById('opt-hi');
+            if (currentLang === 'hi') {
+                container.classList.add('hi-active');
+                optHi.classList.add('active');
+                optEn.classList.remove('active');
+            } else {
+                container.classList.remove('hi-active');
+                optEn.classList.add('active');
+                optHi.classList.remove('active');
+            }
+            render();
+        }
 
-    <div class="warning-card" style="display: none;">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-      <p id="warningText">All your health records, reports, and history will be permanently erased.</p>
-    </div>
+        function showAlert(message, type = 'error') {
+            const banner = document.getElementById('alertBanner');
+            banner.textContent = message;
+            banner.className = `alert-banner ${type} show`;
+        }
 
-    <button class="btn-submit" onclick="handleSubmit()" id="btnSubmit">Permanently Delete Account</button>
-    <a href="#" class="footer-action" id="backLink">Cancel and Return</a>
-  </div>
-</div>
+        function hideAlert() {
+            document.getElementById('alertBanner').className = 'alert-banner';
+        }
 
-<script>
-  const CONTENT = {
-    en: {
-      title: "Delete Account",
-      subtitle: "We're sorry to see you go. Please confirm your identity to complete the request.",
-      labelMobile: "Registered Mobile",
-      labelPassword: "Password",
-      labelReason: "Reason for leaving",
-      warning: "<strong>Critical Warning:</strong> This action is permanent. All pharmaceutical records and data will be lost forever.",
-      btnSubmit: "Confirm Deletion",
-      backLink: "Wait, take me back",
-      reasons: ["Privacy Concerns", "Have another account", "No longer needed", "Other"]
-    },
-    hi: {
-      title: "अकाउंट हटाएं",
-      subtitle: "हमें आपको जाते हुए देखकर दुख हो रहा है। अनुरोध पूरा करने के लिए अपनी पहचान की पुष्टि करें।",
-      labelMobile: "पंजीकृत मोबाइल",
-      labelPassword: "पासवर्ड",
-      labelReason: "छोड़ने का कारण",
-      warning: "<strong>महत्वपूर्ण चेतावनी:</strong> यह क्रिया स्थायी है। सभी फार्मास्युटिकल रिकॉर्ड और डेटा हमेशा के लिए खो जाएंगे।",
-      btnSubmit: "हटाने की पुष्टि करें",
-      backLink: "रुकें, वापस जाएं",
-      reasons: ["गोपनीयता चिंता", "एक और अकाउंट  है", "अब जरूरत नहीं है", "अन्य"]
-    }
-  };
+        function setLoading(loading) {
+            isLoading = loading;
+            const btn = document.getElementById('btnSubmit');
+            const spinner = document.getElementById('btnSpinner');
+            btn.disabled = loading;
+            spinner.style.display = loading ? 'block' : 'none';
+        }
 
-  let currentLang = 'en';
-  let selectedReasonIdx = null;
+        function render() {
+            const data = CONTENT[currentLang];
+            document.getElementById('titleText').innerText = data.title;
+            document.getElementById('labelMobile').innerText = data.labelMobile;
+            document.getElementById('labelPassword').innerText = data.labelPassword;
+            document.getElementById('labelReason').innerText = data.labelReason;
+            document.getElementById('warningText').innerHTML = data.warning;
+            document.getElementById('btnLabel').innerText = data.btnSubmit;
 
-  function toggleLanguage() {
-    currentLang = (currentLang === 'en') ? 'hi' : 'en';
-    
-    // Update Toggle UI
-    const container = document.getElementById('langToggle');
-    const optEn = document.getElementById('opt-en');
-    const optHi = document.getElementById('opt-hi');
-    
-    if(currentLang === 'hi') {
-      container.classList.add('hi-active');
-      optHi.classList.add('active');
-      optEn.classList.remove('active');
-    } else {
-      container.classList.remove('hi-active');
-      optEn.classList.add('active');
-      optHi.classList.remove('active');
-    }
+            const grid = document.getElementById('reasonsGrid');
+            grid.innerHTML = '';
+            data.reasons.forEach((text, index) => {
+                const item = document.createElement('div');
+                item.className = `reason-item ${selectedReasonIdx === index ? 'selected' : ''}`;
+                item.innerText = text;
+                item.onclick = () => { 
+                    selectedReasonIdx = index; 
+                    hideAlert(); 
+                    render(); 
+                };
+                grid.appendChild(item);
+            });
 
-    render();
-  }
+            // Handle Other Reason Input
+            const otherWrapper = document.getElementById('otherReasonWrapper');
+            const isOtherSelected = selectedReasonIdx !== null && data.reasons[selectedReasonIdx] === data.reasons[data.reasons.length - 1]; // "Other" is last
+            
+            if (isOtherSelected) {
+                if (!document.getElementById('otherReasonInput')) {
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.id = 'otherReasonInput';
+                    input.className = 'other-reason-input';
+                    input.placeholder = data.otherPlaceholder;
+                    input.style.paddingLeft = '16px'; // No icon for this one
+                    otherWrapper.appendChild(input);
+                } else {
+                    document.getElementById('otherReasonInput').placeholder = data.otherPlaceholder;
+                }
+            } else {
+                otherWrapper.innerHTML = '';
+            }
+        }
 
-  function render() {
-    const data = CONTENT[currentLang];
-    document.getElementById('titleText').innerText = data.title;
-    document.getElementById('subtitleText').innerText = data.subtitle;
-    document.getElementById('labelMobile').innerText = data.labelMobile;
-    document.getElementById('labelPassword').innerText = data.labelPassword;
-    document.getElementById('labelReason').innerText = data.labelReason;
-    document.getElementById('warningText').innerHTML = data.warning;
-    document.getElementById('btnSubmit').innerText = data.btnSubmit;
-    document.getElementById('backLink').innerText = data.backLink;
+        async function handleSubmit() {
+            if (isLoading) return;
+            hideAlert();
 
-    const grid = document.getElementById('reasonsGrid');
-    grid.innerHTML = '';
-    data.reasons.forEach((text, index) => {
-      const item = document.createElement('div');
-      item.className = `reason-item ${selectedReasonIdx === index ? 'selected' : ''}`;
-      item.innerText = text;
-      item.onclick = () => {
-        selectedReasonIdx = index;
+            const mobile = document.getElementById('mobile').value.trim();
+            const password = document.getElementById('password').value;
+            const data = CONTENT[currentLang];
+
+            if (!mobile || !password || selectedReasonIdx === null) {
+                showAlert(data.errors.fields, 'error');
+                return;
+            }
+
+            let reason = data.reasons[selectedReasonIdx];
+            
+            // Check if 'Other' is selected and mandatory field is filled
+            if (selectedReasonIdx === data.reasons.length - 1) {
+                const otherInput = document.getElementById('otherReasonInput');
+                const otherValue = otherInput ? otherInput.value.trim() : '';
+                if (!otherValue) {
+                    showAlert(data.errors.otherDetail, 'error');
+                    return;
+                }
+                reason = `Other: ${otherValue}`;
+            }
+
+            setLoading(true);
+            try {
+                const response = await fetch(`${BASE_URL}requestAccountDelete`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phoneno: mobile, password, reason }),
+                });
+
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    showAlert(result.message || 'Your request has been submitted.', 'success');
+                    document.getElementById('btnSubmit').disabled = true;
+                    document.getElementById('btnLabel').innerText = currentLang === 'en'
+                        ? '✓ Request Submitted'
+                        : '✓ अनुरोध सबमिट हो गया';
+                } else {
+                    showAlert(result.message || data.errors.generic, 'error');
+                }
+            } catch (err) {
+                showAlert(data.errors.generic, 'error');
+            } finally {
+                setLoading(false);
+            }
+        }
+
         render();
-      };
-      grid.appendChild(item);
-    });
-  }
-
-  function handleSubmit() {
-    const mobile = document.getElementById('mobile').value;
-    if(!mobile || selectedReasonIdx === null) {
-      alert(currentLang === 'en' ? "Please complete all fields." : "कृपया सभी फ़ील्ड भरें।");
-      return;
-    }
-    // Logic for deletion
-    console.log("Processing deletion for:", mobile, "Reason:", CONTENT[currentLang].reasons[selectedReasonIdx]);
-    alert(currentLang === 'en' ? "Processing your request..." : "आपका अनुरोध संसाधित किया जा रहा है...");
-  }
-
-  // Initial load
-  render();
-</script>
+    </script>
 </body>
+
 </html>
